@@ -16,6 +16,11 @@ import { AppointmentDateMap } from '../types';
 import { getAvailableAppointments } from '../utils';
 import { getMonthYearDetails, getNewMonthYear, MonthYear } from './monthYear';
 
+// common options for both useQuery and prefetchQuery
+const commonOptions = {
+  staleTime: 0, // 10 minutes
+  cacheTime: 300000, // 5 minutes
+};
 // for useQuery call
 async function getAppointments(
   year: string,
@@ -61,7 +66,7 @@ export function useAppointments(): UseAppointments {
   /** ****************** END 1: monthYear state ************************* */
   /** ****************** START 2: filter appointments  ****************** */
   // State and functions for filtering appointments to show all or only available
-  const [showAll, setShowAll] = useState(false);
+  const [showAll, setShowAll] = useState(true);
 
   // We will need imported function getAvailableAppointments here
   // We need the user to pass to getAvailableAppointments so we can show
@@ -72,6 +77,7 @@ export function useAppointments(): UseAppointments {
     (data) => getAvailableAppointments(data, user),
     user,
   );
+
   /** ****************** END 2: filter appointments  ******************** */
   const queryClient = useQueryClient();
   useEffect(() => {
@@ -79,6 +85,7 @@ export function useAppointments(): UseAppointments {
     queryClient.prefetchQuery(
       [queryKeys.appointments, nextMonthYear.year, nextMonthYear.month],
       () => getAppointments(nextMonthYear.year, nextMonthYear.month),
+      commonOptions,
     );
   }, [monthYear, queryClient]);
 
@@ -87,6 +94,11 @@ export function useAppointments(): UseAppointments {
     () => getAppointments(monthYear.year, monthYear.month),
     {
       select: showAll ? undefined : selectFn,
+      ...commonOptions,
+      refetchOnMount: true,
+      refetchOnReconnect: true,
+      refetchOnWindowFocus: true,
+      refetchInterval: 60000,
     },
   );
   /** ****************** END 3: useQuery  ******************************* */
