@@ -1,5 +1,6 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
+
 import { Appointment } from '../../../../../shared/types';
 import { axiosInstance } from '../../../axiosInstance';
 import { queryKeys } from '../../../react-query/constants';
@@ -41,5 +42,9 @@ export function useReserveAppointment(): UseMutateFunction<
     },
   );
 
+
+  const { mutate } = useMutation((appointment: Appointment) =>
+    setAppointmentUser(appointment, user?.id),
+  );
   return mutate;
 }
