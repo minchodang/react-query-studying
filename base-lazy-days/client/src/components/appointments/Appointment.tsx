@@ -13,8 +13,8 @@ function isClickable(
   appointmentData: AppointmentType,
 ): boolean {
   return !!(
-    user.id &&
-    (!appointmentData.userId || appointmentData.userId === user.id) &&
+    user?.id &&
+    (!appointmentData.userId || appointmentData.userId === user?.id) &&
     !appointmentInPast(appointmentData)
   );
 }
@@ -28,7 +28,7 @@ export function Appointment({
 }: AppointmentProps): ReactElement {
   const { user } = useUser();
   const reserveAppointment = useReserveAppointment();
-  const [textColor, bgColor] = getAppointmentColor(appointmentData, user.id);
+  const [textColor, bgColor] = getAppointmentColor(appointmentData, user?.id);
 
   const clickable = isClickable(user, appointmentData);
   let onAppointmentClick: undefined | (() => void);
