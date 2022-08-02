@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
 
 import type { Appointment, User } from '../../../../../shared/types';
@@ -7,7 +6,7 @@ import { queryKeys } from '../../../react-query/constants';
 import { queryClient } from '../../../react-query/queryClient';
 import { useUser } from './useUser';
 
-// for when we need a query function for useQuery
+// query function
 async function getUserAppointments(
   user: User | null,
 ): Promise<Appointment[] | null> {
@@ -20,6 +19,7 @@ async function getUserAppointments(
 
 export function useUserAppointments(): Appointment[] {
   const { user } = useUser();
+
   const fallback: Appointment[] = [];
   const { data: userAppointments = fallback } = useQuery(
     [queryKeys.appointments, queryKeys.user, user?.id],
@@ -28,5 +28,6 @@ export function useUserAppointments(): Appointment[] {
       enabled: !!user,
     },
   );
+
   return userAppointments;
 }

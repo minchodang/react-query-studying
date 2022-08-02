@@ -32,7 +32,7 @@ export function useReserveAppointment(): UseMutateFunction<
     (appointment: Appointment) => setAppointmentUser(appointment, user?.id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.appointments]).then();
+        queryClient.invalidateQueries([queryKeys.appointments]);
         toast({
           title: 'You have reserved the appointment!',
           status: 'success',
