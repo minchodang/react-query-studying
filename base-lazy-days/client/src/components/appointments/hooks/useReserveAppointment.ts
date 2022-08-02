@@ -1,6 +1,5 @@
 import { UseMutateFunction, useMutation, useQueryClient } from 'react-query';
 
-
 import { Appointment } from '../../../../../shared/types';
 import { axiosInstance } from '../../../axiosInstance';
 import { queryKeys } from '../../../react-query/constants';
@@ -33,7 +32,7 @@ export function useReserveAppointment(): UseMutateFunction<
     (appointment: Appointment) => setAppointmentUser(appointment, user?.id),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries([queryKeys.appointments]).then();
+        queryClient.invalidateQueries([queryKeys.appointments]);
         toast({
           title: 'You have reserved the appointment!',
           status: 'success',
@@ -42,9 +41,5 @@ export function useReserveAppointment(): UseMutateFunction<
     },
   );
 
-
-  const { mutate } = useMutation((appointment: Appointment) =>
-    setAppointmentUser(appointment, user?.id),
-  );
   return mutate;
 }

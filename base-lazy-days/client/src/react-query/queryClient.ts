@@ -16,7 +16,6 @@ function queryErrorHandler(error: unknown): void {
   toast({ id, title, status: 'error', variant: 'subtle', isClosable: true });
 }
 
-// to satisfy typescript until this file has uncommented contents
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -26,9 +25,6 @@ export const queryClient = new QueryClient({
       refetchOnMount: false,
       refetchOnReconnect: false,
       refetchOnWindowFocus: false,
-    },
-    mutations: {
-      onError: queryErrorHandler,
     },
   },
 });
