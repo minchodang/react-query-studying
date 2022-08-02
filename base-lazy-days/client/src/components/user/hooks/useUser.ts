@@ -10,7 +10,8 @@ import {
   setStoredUser,
 } from '../../../user-storage';
 
-async function getUser(user: User | null): Promise<User | null> {
+// query function
+async function getUser(user: User | null): Promise<User> {
   if (!user) return null;
   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
     `/user/${user.id}`,
@@ -18,6 +19,7 @@ async function getUser(user: User | null): Promise<User | null> {
       headers: getJWTHeader(user),
     },
   );
+
   return data.user;
 }
 
@@ -29,9 +31,19 @@ interface UseUser {
 
 export function useUser(): UseUser {
   const queryClient = useQueryClient();
+
+  // call useQuery to update user data from server
   const { data: user } = useQuery(queryKeys.user, () => getUser(user), {
-    initialData: getStoredUser,
-    onSuccess: (received: User | null) => {
+    // populate initially with user in localStorage
+    initialData: getStoredUser(),
+
+    // note: onSuccess is called on both successful query function completion
+    //     *and* on queryClient.setQueryData
+    // the `received` argument to onSuccess will be:
+    //    - null, if this is called on queryClient.setQueryData in clearUser()
+    //    - User, if this is called from queryClient.setQueryData in updateUser()
+    //         *or* from the getUser query function call
+    onSuccess: (received: null | User) => {
       if (!received) {
         clearStoredUser();
       } else {
@@ -42,12 +54,16 @@ export function useUser(): UseUser {
 
   // meant to be called from useAuth
   function updateUser(newUser: User): void {
+    // update the user
     queryClient.setQueryData(queryKeys.user, newUser);
   }
 
   // meant to be called from useAuth
   function clearUser() {
+    // reset user to null
     queryClient.setQueryData(queryKeys.user, null);
+
+    // remove user appointments query
     queryClient.removeQueries([queryKeys.appointments, queryKeys.user]);
   }
 
