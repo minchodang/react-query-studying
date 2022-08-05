@@ -3,7 +3,6 @@ import { useQuery } from 'react-query';
 import type { Appointment, User } from '../../../../../shared/types';
 import { axiosInstance, getJWTHeader } from '../../../axiosInstance';
 import { queryKeys } from '../../../react-query/constants';
-import { queryClient } from '../../../react-query/queryClient';
 import { useUser } from './useUser';
 
 // query function
