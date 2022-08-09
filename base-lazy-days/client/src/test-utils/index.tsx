@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 
+<<<<<<< HEAD
 import { render } from '@testing-library/react';
 import {
   DefaultOptions,
@@ -47,3 +48,14 @@ export const createWrapper = () => {
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
+=======
+// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
+// export const createWrapper = () => {
+//   const queryClient = new QueryClient({
+//     defaultOptions: defaultQueryClientOptions,
+//   });
+//   return ({ children }) => (
+//     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+//   );
+// };
+>>>>>>> main
