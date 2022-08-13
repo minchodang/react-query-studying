@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 
-<<<<<<< HEAD
 import { render } from '@testing-library/react';
 import {
   DefaultOptions,
@@ -12,21 +11,21 @@ import {
 import { defaultQueryClientOptions } from '../react-query/queryClient';
 
 // suppress errors written to console
-setLogger({
-  log: console.log,
-  warn: console.warn,
-  error: () => {
-    // swallow the errors
-  },
-});
+// setLogger({
+//   log: console.log,
+//   warn: console.warn,
+//   error: () => {
+//     // swallow the errors
+//   },
+// });
 
-const defaultOptions: DefaultOptions = defaultQueryClientOptions;
-if (defaultOptions && defaultOptions.queries)
-  defaultOptions.queries.retry = false;
+// const defaultOptions: DefaultOptions = defaultQueryClientOptions;
+// if (defaultOptions && defaultOptions.queries)
+//   defaultOptions.queries.retry = false;
 
 // make this a function for unique queryClient per test
 const generateQueryClient = () => {
-  return new QueryClient({ defaultOptions });
+  return new QueryClient();
 };
 
 export function renderWithQueryClient(
@@ -40,16 +39,6 @@ export function renderWithQueryClient(
 }
 
 // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-export const createWrapper = () => {
-  const queryClient = new QueryClient({
-    defaultOptions: defaultQueryClientOptions,
-  });
-  return ({ children }) => (
-    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-  );
-};
-=======
-// from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
 // export const createWrapper = () => {
 //   const queryClient = new QueryClient({
 //     defaultOptions: defaultQueryClientOptions,
@@ -58,4 +47,3 @@ export const createWrapper = () => {
 //     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
 //   );
 // };
->>>>>>> main
