@@ -11,11 +11,7 @@ import {
 } from '../../../user-storage';
 
 // query function
-<<<<<<< HEAD
 async function getUser(user: User | null, signal: AbortSignal): Promise<User> {
-=======
-async function getUser(user: User | null): Promise<User> {
->>>>>>> main
   if (!user) return null;
   const { data }: AxiosResponse<{ user: User }> = await axiosInstance.get(
     `/user/${user.id}`,
@@ -38,7 +34,6 @@ export function useUser(): UseUser {
   const queryClient = useQueryClient();
 
   // call useQuery to update user data from server
-<<<<<<< HEAD
   const { data: user } = useQuery(
     queryKeys.user,
     ({ signal }) => getUser(user, signal),
@@ -59,24 +54,6 @@ export function useUser(): UseUser {
           setStoredUser(received);
         }
       },
-=======
-  const { data: user } = useQuery(queryKeys.user, () => getUser(user), {
-    // populate initially with user in localStorage
-    initialData: getStoredUser(),
-
-    // note: onSuccess is called on both successful query function completion
-    //     *and* on queryClient.setQueryData
-    // the `received` argument to onSuccess will be:
-    //    - null, if this is called on queryClient.setQueryData in clearUser()
-    //    - User, if this is called from queryClient.setQueryData in updateUser()
-    //         *or* from the getUser query function call
-    onSuccess: (received: null | User) => {
-      if (!received) {
-        clearStoredUser();
-      } else {
-        setStoredUser(received);
-      }
->>>>>>> main
     },
   );
 

@@ -13,7 +13,6 @@ function queryErrorHandler(error: unknown): void {
   toast({ title, status: 'error', variant: 'subtle', isClosable: true });
 }
 
-<<<<<<< HEAD
 export const defaultQueryClientOptions = {
   queries: {
     onError: queryErrorHandler,
@@ -22,18 +21,6 @@ export const defaultQueryClientOptions = {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-=======
-export const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      onError: queryErrorHandler,
-      staleTime: 600000, // 10 minutes
-      cacheTime: 900000, // 15 minutes
-      refetchOnMount: false,
-      refetchOnReconnect: false,
-      refetchOnWindowFocus: false,
-    },
->>>>>>> main
   },
   mutations: {
     onError: queryErrorHandler,
