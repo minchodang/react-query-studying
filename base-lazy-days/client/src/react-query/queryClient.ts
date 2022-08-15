@@ -47,6 +47,7 @@ export function generateQueryClient(): QueryClient {
 
 export const queryClient = generateQueryClient();
 
+
 // export const queryClient = new QueryClient({
 //   defaultOptions: defaultQueryClientOptions,
 // });

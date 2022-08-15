@@ -12,13 +12,13 @@ import { generateQueryClient } from '../react-query/queryClient';
 import { defaultQueryClientOptions } from '../react-query/queryClient';
 
 // suppress errors written to console
-setLogger({
-  log: console.log,
-  warn: console.warn,
-  error: () => {
-    // swallow the errors
-  },
-});
+// setLogger({
+//   log: console.log,
+//   warn: console.warn,
+//   error: () => {
+//     // swallow the errors
+//   },
+// });
 
 // const defaultOptions: DefaultOptions = defaultQueryClientOptions;
 // if (defaultOptions && defaultOptions.queries)
