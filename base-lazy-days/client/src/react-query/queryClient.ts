@@ -12,21 +12,41 @@ function queryErrorHandler(error: unknown): void {
   toast.closeAll();
   toast({ title, status: 'error', variant: 'subtle', isClosable: true });
 }
+//
+// export const defaultQueryClientOptions = {
+//   queries: {
+//     onError: queryErrorHandler,
+//     staleTime: 600000, // 10 minutes
+//     cacheTime: 900000, // default cacheTime is 5 minutes; doesn't make sense for staleTime to exceed cacheTime
+//     refetchOnMount: false,
+//     refetchOnWindowFocus: false,
+//     refetchOnReconnect: false,
+//   },
+//   mutations: {
+//     onError: queryErrorHandler,
+//   },
+// };
 
-export const defaultQueryClientOptions = {
-  queries: {
-    onError: queryErrorHandler,
-    staleTime: 600000, // 10 minutes
-    cacheTime: 900000, // default cacheTime is 5 minutes; doesn't make sense for staleTime to exceed cacheTime
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    refetchOnReconnect: false,
-  },
-  mutations: {
-    onError: queryErrorHandler,
-  },
-};
+export function generateQueryClient(): QueryClient {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        onError: queryErrorHandler,
+        staleTime: 600000, // 10 minutes
+        cacheTime: 900000, // default cacheTime is 5 minutes; doesn't make sense for staleTime to exceed cacheTime
+        refetchOnMount: false,
+        refetchOnWindowFocus: false,
+        refetchOnReconnect: false,
+      },
+      mutations: {
+        onError: queryErrorHandler,
+      },
+    },
+  });
+}
 
-export const queryClient = new QueryClient({
-  defaultOptions: defaultQueryClientOptions,
-});
+export const queryClient = generateQueryClient();
+
+// export const queryClient = new QueryClient({
+//   defaultOptions: defaultQueryClientOptions,
+// });
