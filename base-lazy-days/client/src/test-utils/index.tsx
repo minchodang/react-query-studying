@@ -7,9 +7,11 @@ import {
   QueryClientProvider,
   setLogger,
 } from 'react-query';
-import { generateQueryClient } from '../react-query/queryClient';
 
-import { defaultQueryClientOptions } from '../react-query/queryClient';
+import {
+  defaultQueryClientOptions,
+  generateQueryClient,
+} from '../react-query/queryClient';
 
 // suppress errors written to console
 // setLogger({
@@ -43,11 +45,11 @@ export function renderWithQueryClient(
 }
 
 // from https://tkdodo.eu/blog/testing-react-query#for-custom-hooks
-// export const createWrapper = () => {
-//   const queryClient = new QueryClient({
-//     defaultOptions: defaultQueryClientOptions,
-//   });
-//   return ({ children }) => (
-//     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-//   );
-// };
+export const createQueryClientWrapper = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: defaultQueryClientOptions,
+  });
+  return ({ children }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+};
